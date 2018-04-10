@@ -19,7 +19,17 @@ if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
             wget get.docker.com -O docker-setup.sh
             if ! sh docker-setup.sh > /dev/null 2>&1; then
                 if sudo usermod -aG docker $USER > /dev/null 2>&1; then
-                    rm docker-setup.sh
+                    if sudo su - $USER; then
+                        docker pull easyengine/base
+                        docker pull easyengine/nginx
+                        docker pull easyengine/php
+                        docker pull easyengine/mariadb
+                        docker pull easyengine/nginx-proxy
+                        docker pull easyengine/mail
+                        docker pull easyengine/phpmyadmin
+                        docker pull easyengine/redis
+                        rm docker-setup.sh
+                    fi
                 else
                     echo "Please logout and login again to complete the docker setup"
                 fi
