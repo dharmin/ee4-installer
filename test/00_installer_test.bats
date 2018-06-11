@@ -5,6 +5,7 @@ load 'libs/bats-assert/load'
 
 
 @test "install dependencies" {
+  run rm /usr/local/bin/docker-compose
   run bash new_install.sh
   assert_success
 }
